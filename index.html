@@ -1,36 +1,34 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, user-scalable=no"
+  />
   <title>Cùng Nhau Đi Qua Mùa Hạ</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Font viết tay nhẹ nhàng -->
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-
-  <!-- Giao diện chính -->
-  <link rel="stylesheet" href="secure-asset/captured/styles.css">
-
-  <!-- Script bảo mật & loader -->
-  <script src="security/secure-loader.js?v=1753798994&tok=334fb9b1-3a4b-4313-b727-98e80cae06a8"></script>
+  <link rel="stylesheet" href="secure-asset/captured/styles.css" />
 </head>
 <body>
-  <!-- Cảnh báo khi xoay ngang màn hình -->
-  <div class="orientation-warning">Vui lòng xoay dọc thiết bị để xem nội dung</div>
-
-  <!-- Cassette phát nhạc -->
-  <div class="cassette-top-center" id="cassetteBtn">
-    <img src="secure-asset/captured/casstte/1.png" alt="cassette" class="cassette-img">
+  <div class="main-content">
+    <div class="cassette-container">
+      <img
+        src="secure-asset/captured/images/cassette.png"
+        alt="cassette"
+      />
+      <audio
+        id="bgm"
+        src="secure-asset/captured/images/song.mp3"
+        loop
+        autoplay
+      ></audio>
+      <button id="toggle-music">⏸️</button>
+    </div>
+    <div class="book-container">
+      <div id="book"></div>
+    </div>
   </div>
 
-  <!-- Audio mùa hạ -->
-  <audio id="audioPlayer" src="secure-asset/captured/song.mp3" preload="auto"></audio>
-
-  <!-- Cuốn sách -->
-  <div class="book has-right"></div>
-
-  <!-- Nội dung và hiệu ứng -->
-  <script src="dynamic/data.js"></script>
-  <script src="secure-asset/captured/script.js"></script>
+  <script defer src="secure-asset/captured/script.js"></script>
 </body>
 </html>
