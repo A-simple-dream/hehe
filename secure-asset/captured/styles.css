@@ -1,59 +1,138 @@
-/* --- Background vintage xanh da trời nhạt --- */
-body {
-  background: #88c9e8
-    url('images/bg-vintage-sky.jpg') no-repeat center/cover;
+/* Reset cơ bản */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+/* Phông chữ chính */
+body {
+  font-family: "Pacifico", cursive;
+  background: #f5f5f5;
+  overflow-x: hidden;
+}
+
+/* Khung sách */
+.book-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  perspective: 2000px;
+}
+
+.book {
+  position: relative;
+  width: 300px;
+  height: 400px;
+}
+
+/* Các trang sách (label + input) */
+.book input[type="radio"] {
+  display: none;
+}
+
+.book label.page {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.6s;
+  transform-origin: left;
+  backface-visibility: hidden;
+}
+
+/* Mặt bìa ngoài */
+.book label.page.cover {
+  z-index: 100;
+  background: #ffe4e1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.book label.page.cover h1 {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+/* Khi lật trang */
+.book input#page-3:checked ~ label[for="page-3"],
+.book input#page-5:checked ~ label[for="page-5"],
+.book input#page-7:checked ~ label[for="page-7"],
+.book input#page-9:checked ~ label[for="page-9"] {
+  transform: rotateY(-180deg);
+  z-index: 50;
+}
+
+/* Shadow effect */
+.shadow-left,
+.shadow-right {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.shadow-left {
+  left: 0;
+  background: linear-gradient(
+    to left,
+    rgba(0, 0, 0, 0.1),
+    transparent
+  );
+}
+
+.shadow-right {
+  right: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.1),
+    transparent
+  );
+}
+
+/* Phần text & ảnh bên trong trang */
+.page-img-wrap {
+  width: 100%;
+  height: 70%;
   overflow: hidden;
 }
 
-/* Giữ nguyên toàn bộ phần còn lại của file gốc */
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-
-.cassette-container {
-  position: absolute;
-  top: 50%;
-  left: 20px;
-  transform: translateY(-50%);
-  width: 120px;
-  cursor: pointer;
-}
-.cassette-container img {
-  width: 100%;
+.page-img {
   display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
-#toggle-music {
-  position: absolute;
-  bottom: -30px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(255,255,255,0.7);
-  border: none;
-  border-radius: 50%;
-  padding: 8px;
-  cursor: pointer;
+
+.page-text {
+  height: 30%;
+  padding: 0.5rem;
+  text-align: center;
+  font-size: 1rem;
 }
-.book-container {
-  position: absolute;
-  top: 50%;
+
+/* Cassette player */
+#cassetteBtn {
+  position: fixed;
+  bottom: 20px;
   right: 20px;
-  transform: translateY(-50%);
-  width: 240px;
-  height: 320px;
-  perspective: 800px;
+  border: none;
+  background: none;
 }
-#book {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform-style: preserve-3d;
+
+.cassette-img {
+  width: 60px;
+  height: 60px;
 }
-.page {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  backface-visibility: hidden;
-  background: white;
-  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+
+/* Animation khi phát nhạc */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
-/* …sao chép tiếp tất cả CSS từ file gốc… */
