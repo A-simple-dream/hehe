@@ -2,6 +2,7 @@ window.dataFromSubdomain = {
   template: "captured",
   data: {
     nameBook: "Cùng Nhau Đi Qua Mùa Hạ",
+    song: "",    // Nếu có link nhạc thì thêm vào đây
     pageInfos: [
       {
         text: "Mùa hè rực rỡ của chúng ta",
