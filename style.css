@@ -1,0 +1,82 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: url('assets/bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
+}
+
+.overlay {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.click-area {
+  position: absolute;
+  cursor: pointer;
+}
+
+#vinyl {
+  top: 22%;
+  left: 7%;
+  width: 25%;
+  height: 25%;
+}
+
+#book {
+  top: 55%;
+  left: 35%;
+  width: 22%;
+  height: 18%;
+}
+
+#music-notes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.note {
+  position: absolute;
+  font-size: 24px;
+  animation: floatUp 2s ease-in forwards;
+  color: #ff69b4;
+}
+
+@keyframes floatUp {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-100px); }
+}
+
+#book-pages {
+  position: absolute;
+  top: 15%;
+  left: 25%;
+  width: 50%;
+  height: 70%;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 10;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+#book-pages.hidden {
+  display: none;
+}
+
+.page {
+  width: 90%;
+  margin: 10px 0;
+}
+
+.page img {
+  width: 100%;
+  border-radius: 10px;
+}
