@@ -10,7 +10,7 @@ const closeBook = document.getElementById('close-book');
 let isPlaying = false;
 let spinning = false;
 let spinInterval;
-let vinylFrames = ['page2.jpg', 'page3.jpg', 'page4.jpg', 'page5.jpg'];
+let vinylFrames = ['page2.png', 'page3.png', 'page4.png', 'page5.png'];
 let frameIndex = 0;
 
 vinylZone.addEventListener('click', () => {
@@ -27,7 +27,7 @@ vinylZone.addEventListener('click', () => {
     isPlaying = false;
     spinning = false;
     clearInterval(spinInterval);
-    vinylImg.src = 'assets/page1.jpg';
+    vinylImg.src = 'assets/page1.png';
   }
 });
 
