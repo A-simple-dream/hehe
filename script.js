@@ -36,7 +36,7 @@ let html = `<input type="radio" name="page" id="page-1" checked />`;
 html += `<label class="page cover" for="page-3"><h1>Cuốn Nhật Ký Mùa Hạ</h1></label>`;
 html += `<label class="page cover" for="page-1"></label>`;
 
-for (let i = 1; i <= 10; i += 2) {
+for (let i = 1; i <= 6; i += 2) {
   const nextId = i + 2;
   html += `<input type="radio" name="page" id="page-${i}" />`;
   html += `<label class="page" for="page-${nextId}">
