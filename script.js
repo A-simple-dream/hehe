@@ -53,3 +53,13 @@ for (let i = 1; i <= 10; i += 2) {
   </label>`;
 }
 book.innerHTML = html;
+// Tạo hiệu ứng chạm để lật sang trang kế tiếp
+document.querySelector(".book").addEventListener("click", () => {
+  const radios = document.querySelectorAll("input[type=radio][name=page]");
+  const currentIndex = Array.from(radios).findIndex(r => r.checked);
+
+  if (currentIndex >= 0 && currentIndex < radios.length - 1) {
+    radios[currentIndex + 1].checked = true;
+    updateBookShadow();
+  }
+});
