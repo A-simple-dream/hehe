@@ -1,13 +1,15 @@
-// 🎶 Xử lý cassette
+// 🎶 Cassette xử lý
 const cassetteBtn = document.getElementById("cassetteBtn");
 const audioPlayer = document.getElementById("audioPlayer");
 const cassetteImg = document.querySelector(".cassette-img");
+
 const cassetteImgs = [
   "assets/page2.png",
   "assets/page3.png",
   "assets/page4.png",
   "assets/page5.png",
 ];
+
 let cassetteIndex = 0;
 let cassetteInterval = null;
 
@@ -29,70 +31,39 @@ function stopCassetteAnimation() {
 cassetteBtn.addEventListener("click", () => {
   audioPlayer.paused ? audioPlayer.play() : audioPlayer.pause();
 });
-
 audioPlayer.addEventListener("play", startCassetteAnimation);
 audioPlayer.addEventListener("pause", stopCassetteAnimation);
 audioPlayer.addEventListener("ended", stopCassetteAnimation);
 
-// 📖 Xử lý nhật ký
+// 📖 Dựng nhật ký bằng radio + dữ liệu từ data.js
 const bookEl = document.querySelector(".book");
-const pageInfos = (window.dataFromSubdomain?.data?.pageInfos) || [];
-let currentPageIndex = -1;
+const pageInfos = window.dataFromSubdomain?.data?.pageInfos || [];
+const nameBook = window.dataFromSubdomain?.data?.nameBook || "Cuốn Nhật Ký";
 
-function renderBook(index) {
-  bookEl.innerHTML = "";
-
-  // Trang trái
-  const leftPage = document.createElement("div");
-  leftPage.className = "page";
-  leftPage.style.left = "1%";
-  if (index > 0) {
-    const prev = pageInfos[index - 1];
-    leftPage.innerHTML = `
-      <div class="page-img-wrap"><img class="page-img" src="${prev.image}" /></div>
-      <div class="page-text">${prev.text}</div>
-    `;
-  } else {
-    leftPage.classList.add("cover");
-  }
-
-  // Trang phải
-  const rightPage = document.createElement("div");
-  rightPage.className = "page";
-  if (index >= 0) {
-    const data = pageInfos[index];
-    rightPage.innerHTML = `
-      <div class="page-img-wrap"><img class="page-img" src="${data.image}" /></div>
-      <div class="page-text">${data.text}</div>
-    `;
-  } else {
-    rightPage.classList.add("cover");
-    rightPage.innerHTML = `<h1>${window.dataFromSubdomain?.data?.nameBook || 'Cuốn Nhật Ký Mùa Hạ'}</h1>`;
-  }
-
-  bookEl.appendChild(leftPage);
-  bookEl.appendChild(rightPage);
+function createPage(text, image, isCover = false) {
+  const div = document.createElement("div");
+  div.className = isCover ? "cover" : "page";
+  div.innerHTML = isCover
+    ? `<h1>${nameBook}</h1>`
+    : `<div class="page-img-wrap"><img class="page-img" src="${image}" /></div><div class="page-text">${text}</div>`;
+  return div;
 }
 
-bookEl.addEventListener("click", (e) => {
-  const rect = bookEl.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const center = rect.width / 2;
+function renderBook() {
+  for (let i = 0; i <= pageInfos.length; i++) {
+    const input = document.createElement("input");
+    input.type = "radio";
+    input.name = "page";
+    input.id = `page-${i}`;
+    if (i === 0) input.checked = true;
+    bookEl.appendChild(input);
 
-  if (currentPageIndex === -1) {
-    currentPageIndex = 0;
-    renderBook(currentPageIndex);
-    audioPlayer?.play(); // phát nhạc khi mở
-  } else {
-    if (x > center && currentPageIndex < pageInfos.length - 1) {
-      currentPageIndex++;
-      renderBook(currentPageIndex);
-    } else if (x < center && currentPageIndex > 0) {
-      currentPageIndex--;
-      renderBook(currentPageIndex);
+    bookEl.appendChild(createPage('', '', true)); // bìa hoặc mặt trái
+    if (i > 0) {
+      const p = pageInfos[i - 1];
+      bookEl.appendChild(createPage(p.text, p.image)); // trang nội dung
     }
   }
-});
+}
 
-// Khởi tạo chỉ hiển thị bìa
-renderBook(currentPageIndex);
+renderBook();
