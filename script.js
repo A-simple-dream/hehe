@@ -1,3 +1,4 @@
+// 🎶 Xử lý cassette
 const cassetteBtn = document.getElementById("cassetteBtn");
 const audioPlayer = document.getElementById("audioPlayer");
 const cassetteImg = document.querySelector(".cassette-img");
@@ -17,49 +18,81 @@ function startCassetteAnimation() {
     cassetteImg.src = cassetteImgs[cassetteIndex];
   }, 500);
 }
+
 function stopCassetteAnimation() {
   clearInterval(cassetteInterval);
   cassetteInterval = null;
   cassetteIndex = 0;
   cassetteImg.src = "assets/page1.png";
 }
+
 cassetteBtn.addEventListener("click", () => {
   audioPlayer.paused ? audioPlayer.play() : audioPlayer.pause();
 });
+
 audioPlayer.addEventListener("play", startCassetteAnimation);
 audioPlayer.addEventListener("pause", stopCassetteAnimation);
 audioPlayer.addEventListener("ended", stopCassetteAnimation);
 
-// Tạo trang nhật ký
-const book = document.querySelector(".book");
-let html = `<input type="radio" name="page" id="page-1" checked />`;
-html += `<label class="page cover" for="page-3"><h1>Cuốn Nhật Ký Mùa Hạ</h1></label>`;
-html += `<label class="page cover" for="page-1"></label>`;
+// 📖 Xử lý nhật ký
+const bookEl = document.querySelector(".book");
+const pageInfos = (window.dataFromSubdomain?.data?.pageInfos) || [];
+let currentPageIndex = -1;
 
-for (let i = 1; i <= 6; i += 2) {
-  const nextId = i + 2;
-  html += `<input type="radio" name="page" id="page-${i}" />`;
-  html += `<label class="page" for="page-${nextId}">
-    <div class="page-img-wrap">
-      <img src="photo/photo${i}.jpg" class="page-img" />
-    </div>
-    <div class="page-text">Ký ức ${i}</div>
-  </label>`;
-  html += `<label class="page" for="page-${i}">
-    <div class="page-img-wrap">
-      <img src="photo/photo${i + 1}.jpg" class="page-img" />
-    </div>
-    <div class="page-text">Ký ức ${i + 1}</div>
-  </label>`;
+function renderBook(index) {
+  bookEl.innerHTML = "";
+
+  // Trang trái
+  const leftPage = document.createElement("div");
+  leftPage.className = "page";
+  leftPage.style.left = "1%";
+  if (index > 0) {
+    const prev = pageInfos[index - 1];
+    leftPage.innerHTML = `
+      <div class="page-img-wrap"><img class="page-img" src="${prev.image}" /></div>
+      <div class="page-text">${prev.text}</div>
+    `;
+  } else {
+    leftPage.classList.add("cover");
+  }
+
+  // Trang phải
+  const rightPage = document.createElement("div");
+  rightPage.className = "page";
+  if (index >= 0) {
+    const data = pageInfos[index];
+    rightPage.innerHTML = `
+      <div class="page-img-wrap"><img class="page-img" src="${data.image}" /></div>
+      <div class="page-text">${data.text}</div>
+    `;
+  } else {
+    rightPage.classList.add("cover");
+    rightPage.innerHTML = `<h1>${window.dataFromSubdomain?.data?.nameBook || 'Cuốn Nhật Ký Mùa Hạ'}</h1>`;
+  }
+
+  bookEl.appendChild(leftPage);
+  bookEl.appendChild(rightPage);
 }
-book.innerHTML = html;
-// Tạo hiệu ứng chạm để lật sang trang kế tiếp
-document.querySelector(".book").addEventListener("click", () => {
-  const radios = document.querySelectorAll("input[type=radio][name=page]");
-  const currentIndex = Array.from(radios).findIndex(r => r.checked);
 
-  if (currentIndex >= 0 && currentIndex < radios.length - 1) {
-    radios[currentIndex + 1].checked = true;
-    updateBookShadow();
+bookEl.addEventListener("click", (e) => {
+  const rect = bookEl.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const center = rect.width / 2;
+
+  if (currentPageIndex === -1) {
+    currentPageIndex = 0;
+    renderBook(currentPageIndex);
+    audioPlayer?.play(); // phát nhạc khi mở
+  } else {
+    if (x > center && currentPageIndex < pageInfos.length - 1) {
+      currentPageIndex++;
+      renderBook(currentPageIndex);
+    } else if (x < center && currentPageIndex > 0) {
+      currentPageIndex--;
+      renderBook(currentPageIndex);
+    }
   }
 });
+
+// Khởi tạo chỉ hiển thị bìa
+renderBook(currentPageIndex);
