@@ -1,10 +1,10 @@
 const pageInfos = [
   { text: "Mùa hè rực rỡ của chúng ta", image: "photo/photo1.jpg" },
   { text: "Em và biển", image: "photo/photo2.jpg" },
-  // Thêm ảnh & text tuỳ ý...
+  // Thêm bao nhiêu ảnh tùy ý
 ];
 
-// Render trang sách
+// 📘 Sinh toàn bộ trang sách
 function renderBookPages() {
   const book = document.querySelector(".book");
   let html = `
@@ -17,6 +17,7 @@ function renderBookPages() {
   for (let i = 0; i < pageInfos.length; i += 2) {
     const nextPageId = pageIndex + 2;
     html += `<input type="radio" name="page" id="page-${pageIndex}" />`;
+
     for (let j = 0; j < 2; j++) {
       const item = pageInfos[i + j];
       if (item) {
@@ -37,13 +38,14 @@ function renderBookPages() {
     <label class="page cover" for="page-${pageIndex}"></label>
     <input type="radio" name="page" id="page-${pageIndex + 2}" />
   `;
+
   book.innerHTML = html;
 }
 
 renderBookPages();
 updateBookShadow();
 
-// Bóng đổ trái/phải
+// 🎯 Bóng đổ hai bên theo trạng thái trang
 function updateBookShadow() {
   const book = document.querySelector(".book");
   const radios = document.querySelectorAll("input[type=radio][name=page]");
@@ -68,8 +70,7 @@ function updateBookShadow() {
   }
 }
 
-// Cassette hiệu ứng
-const cassetteBtn = document.getElementById("cassetteBtn");
+// 🔁 Cassette quay theo nhạc
 const audioPlayer = document.getElementById("audioPlayer");
 const cassetteImg = document.querySelector(".cassette-img");
 const cassetteImgs = [
@@ -87,25 +88,19 @@ function startCassetteAnimation() {
     cassetteImg.src = cassetteImgs[cassetteIndex];
   }, 500);
 }
-
 function stopCassetteAnimation() {
   clearInterval(cassetteInterval);
   cassetteInterval = null;
   cassetteIndex = 0;
   cassetteImg.src = "assets/page1.png";
 }
-
-cassetteBtn.addEventListener("click", () => {
-  audioPlayer.paused ? audioPlayer.play() : audioPlayer.pause();
-});
-
 audioPlayer.addEventListener("play", startCassetteAnimation);
 audioPlayer.addEventListener("pause", stopCassetteAnimation);
 audioPlayer.addEventListener("ended", stopCassetteAnimation);
 
-// Auto phát khi mở sách
+// 🔊 Auto phát nhạc khi mở trang bất kỳ ngoài trang đầu
 let firstBookOpen = false;
-document.addEventListener("change", (e) => {
+document.addEventListener("change", function (e) {
   if (e.target.matches("input[type=radio][name=page]")) {
     updateBookShadow();
     if (!firstBookOpen && e.target.id !== "page-1" && audioPlayer) {
