@@ -2,18 +2,21 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cuốn Nhật Ký Mùa Hạ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cuốn Nhật Ký</title>
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="orientation-warning">Vui lòng xoay dọc thiết bị để xem nội dung</div>
-  <div class="cassette-top-center" id="cassetteBtn">
-    <img src="assets/page1.png" alt="cassette" class="cassette-img" />
+  <div class="cassette-top-center">
+    <img class="cassette-img" src="assets/page1.png" id="cassetteImg" />
+    <button id="cassetteBtn" style="display:none;"></button>
+    <audio id="audioPlayer" src="assets/music.mp3"></audio>
   </div>
-  <audio id="audioPlayer" src="assets/music.mp3"></audio>
+
   <div class="book"></div>
+
+  <script src="data.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
