@@ -1,16 +1,13 @@
-// ——————————————————————
-// 1. Cassette animation
-// ——————————————————————
-const cassetteBtn    = document.getElementById("cassetteBtn");
-const audioPlayer    = document.getElementById("audioPlayer");
-const cassetteImg    = document.getElementById("cassetteImg");
-const cassetteImgs   = [
+const cassetteBtn = document.getElementById("cassetteBtn");
+const audioPlayer = document.getElementById("audioPlayer");
+const cassetteImg = document.querySelector(".cassette-img");
+const cassetteImgs = [
   "assets/page2.png",
   "assets/page3.png",
   "assets/page4.png",
   "assets/page5.png",
 ];
-let cassetteIndex    = 0;
+let cassetteIndex = 0;
 let cassetteInterval = null;
 
 function startCassetteAnimation() {
@@ -29,66 +26,30 @@ function stopCassetteAnimation() {
 cassetteBtn.addEventListener("click", () => {
   audioPlayer.paused ? audioPlayer.play() : audioPlayer.pause();
 });
-audioPlayer.addEventListener("play",  startCassetteAnimation);
+audioPlayer.addEventListener("play", startCassetteAnimation);
 audioPlayer.addEventListener("pause", stopCassetteAnimation);
 audioPlayer.addEventListener("ended", stopCassetteAnimation);
 
-// ——————————————————————
-// 2. Book-flip bằng radio + CSS
-// ——————————————————————
-const bookEl   = document.querySelector(".book");
-const data     = window.dataFromSubdomain?.data || {};
-const nameBook = data.nameBook   || "Cuốn Nhật Ký";
-const pages    = data.pageInfos  || [];
+// Tạo trang nhật ký
+const book = document.querySelector(".book");
+let html = `<input type="radio" name="page" id="page-1" checked />`;
+html += `<label class="page cover" for="page-3"><h1>Cuốn Nhật Ký Mùa Hạ</h1></label>`;
+html += `<label class="page cover" for="page-1"></label>`;
 
-function createPage(item, isCover = false) {
-  const div = document.createElement("div");
-  div.className = isCover ? "cover" : "page";
-  if (isCover) {
-    div.innerHTML = `<h1>${nameBook}</h1>`;
-  } else {
-    div.innerHTML = `
-      <div class="page-img-wrap">
-        <img class="page-img" src="${item.image}" />
-      </div>
-      <div class="page-text">${item.text}</div>
-    `;
-  }
-  return div;
+for (let i = 1; i <= 10; i += 2) {
+  const nextId = i + 2;
+  html += `<input type="radio" name="page" id="page-${i}" />`;
+  html += `<label class="page" for="page-${nextId}">
+    <div class="page-img-wrap">
+      <img src="photo/photo${i}.jpg" class="page-img" />
+    </div>
+    <div class="page-text">Ký ức ${i}</div>
+  </label>`;
+  html += `<label class="page" for="page-${i}">
+    <div class="page-img-wrap">
+      <img src="photo/photo${i + 1}.jpg" class="page-img" />
+    </div>
+    <div class="page-text">Ký ức ${i + 1}</div>
+  </label>`;
 }
-
-function renderBook() {
-  for (let i = 0; i <= pages.length; i++) {
-    // 1. Radio input
-    const input = document.createElement("input");
-    input.type = "radio";
-    input.name = "page";
-    input.id   = `page-${i}`;
-    if (i === 0) input.checked = true;
-    bookEl.appendChild(input);
-
-    // 2. Cover or blank page-left
-    bookEl.appendChild(createPage({}, true));
-
-    // 3. Content-page or cover-front
-    if (i > 0) bookEl.appendChild(createPage(pages[i - 1]));
-    else       bookEl.appendChild(createPage({}, true));
-  }
-}
-
-renderBook();
-
-// 3. Click trái/phải để tick radio
-bookEl.addEventListener("click", e => {
-  const rect      = bookEl.getBoundingClientRect();
-  const x         = e.clientX - rect.left;
-  const half      = rect.width / 2;
-  const inputsArr = Array.from(bookEl.querySelectorAll("input[name=page]"));
-  const current   = inputsArr.findIndex(i => i.checked);
-
-  if (x > half && current < inputsArr.length - 1) {
-    inputsArr[current + 1].checked = true;
-  } else if (x < half && current > 0) {
-    inputsArr[current - 1].checked = true;
-  }
-});
+book.innerHTML = html;
