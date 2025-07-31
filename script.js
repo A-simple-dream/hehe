@@ -1,14 +1,17 @@
 const pageInfos = [
   { text: "Mùa hè rực rỡ của chúng ta", image: "photo/photo1.jpg" },
   { text: "Em và biển", image: "photo/photo2.jpg" },
-  // thêm nhiều ảnh khác nếu cần
+  // Thêm ảnh & text tuỳ ý...
 ];
 
+// Render trang sách
 function renderBookPages() {
   const book = document.querySelector(".book");
-  let html = `<input type="radio" name="page" id="page-1" checked />
-              <label class="page cover" for="page-3"><h1>Cuốn Nhật Ký Mùa Hạ</h1></label>
-              <label class="page cover" for="page-1"></label>`;
+  let html = `
+    <input type="radio" name="page" id="page-1" checked />
+    <label class="page cover" for="page-3"><h1>Cuốn Nhật Ký Mùa Hạ</h1></label>
+    <label class="page cover" for="page-1"></label>
+  `;
   let pageIndex = 3;
 
   for (let i = 0; i < pageInfos.length; i += 2) {
@@ -18,64 +21,29 @@ function renderBookPages() {
       const item = pageInfos[i + j];
       if (item) {
         html += `<label class="page" for="page-${j === 0 ? nextPageId : pageIndex}">
-                   <div class="page-img-wrap"><img src="${item.image}" class="page-img"/></div>
-                   ${item.text ? `<div class="page-text">${item.text}</div>` : ""}
-                 </label>`;
+          <div class="page-img-wrap">
+            <img src="${item.image}" class="page-img" />
+          </div>
+          ${item.text ? `<div class="page-text">${item.text}</div>` : ""}
+        </label>`;
       }
     }
     pageIndex += 2;
   }
 
-  html += `<input type="radio" name="page" id="page-${pageIndex}" />
-           <label class="page cover" for="page-${pageIndex + 2}"></label>
-           <label class="page cover" for="page-${pageIndex}"></label>
-           <input type="radio" name="page" id="page-${pageIndex + 2}" />`;
-
+  html += `
+    <input type="radio" name="page" id="page-${pageIndex}" />
+    <label class="page cover" for="page-${pageIndex + 2}"></label>
+    <label class="page cover" for="page-${pageIndex}"></label>
+    <input type="radio" name="page" id="page-${pageIndex + 2}" />
+  `;
   book.innerHTML = html;
 }
 
 renderBookPages();
 updateBookShadow();
 
-// Thêm cassette
-const cassetteBtn = document.getElementById("cassetteBtn");
-const audioPlayer = document.getElementById("audioPlayer");
-const cassetteImg = document.querySelector(".cassette-img");
-const cassetteImgs = ["casstte/2.png", "casstte/3.png", "casstte/4.png", "casstte/5.png"];
-let cassetteIndex = 0, cassetteInterval = null;
-
-function startCassetteAnimation() {
-  if (cassetteInterval) return;
-  cassetteInterval = setInterval(() => {
-    cassetteIndex = (cassetteIndex + 1) % cassetteImgs.length;
-    cassetteImg.src = cassetteImgs[cassetteIndex];
-  }, 500);
-}
-function stopCassetteAnimation() {
-  clearInterval(cassetteInterval);
-  cassetteInterval = null;
-  cassetteIndex = 0;
-  cassetteImg.src = "casstte/1.png";
-}
-cassetteBtn.addEventListener("click", () => {
-  audioPlayer.paused ? audioPlayer.play() : audioPlayer.pause();
-});
-audioPlayer.addEventListener("play", startCassetteAnimation);
-audioPlayer.addEventListener("pause", stopCassetteAnimation);
-audioPlayer.addEventListener("ended", stopCassetteAnimation);
-
-// Auto-play khi lật trang
-let firstBookOpen = false;
-document.addEventListener("change", function (e) {
-  if (e.target.matches("input[type=radio][name=page]")) {
-    updateBookShadow();
-    if (!firstBookOpen && e.target.id !== "page-1" && audioPlayer) {
-      firstBookOpen = true;
-      if (audioPlayer.paused) audioPlayer.play();
-    }
-  }
-});
-
+// Bóng đổ trái/phải
 function updateBookShadow() {
   const book = document.querySelector(".book");
   const radios = document.querySelectorAll("input[type=radio][name=page]");
@@ -99,3 +67,50 @@ function updateBookShadow() {
     book.appendChild(right);
   }
 }
+
+// Cassette hiệu ứng
+const cassetteBtn = document.getElementById("cassetteBtn");
+const audioPlayer = document.getElementById("audioPlayer");
+const cassetteImg = document.querySelector(".cassette-img");
+const cassetteImgs = [
+  "assets/page2.png",
+  "assets/page3.png",
+  "assets/page4.png",
+  "assets/page5.png",
+];
+let cassetteIndex = 0, cassetteInterval = null;
+
+function startCassetteAnimation() {
+  if (cassetteInterval) return;
+  cassetteInterval = setInterval(() => {
+    cassetteIndex = (cassetteIndex + 1) % cassetteImgs.length;
+    cassetteImg.src = cassetteImgs[cassetteIndex];
+  }, 500);
+}
+
+function stopCassetteAnimation() {
+  clearInterval(cassetteInterval);
+  cassetteInterval = null;
+  cassetteIndex = 0;
+  cassetteImg.src = "assets/page1.png";
+}
+
+cassetteBtn.addEventListener("click", () => {
+  audioPlayer.paused ? audioPlayer.play() : audioPlayer.pause();
+});
+
+audioPlayer.addEventListener("play", startCassetteAnimation);
+audioPlayer.addEventListener("pause", stopCassetteAnimation);
+audioPlayer.addEventListener("ended", stopCassetteAnimation);
+
+// Auto phát khi mở sách
+let firstBookOpen = false;
+document.addEventListener("change", (e) => {
+  if (e.target.matches("input[type=radio][name=page]")) {
+    updateBookShadow();
+    if (!firstBookOpen && e.target.id !== "page-1" && audioPlayer) {
+      firstBookOpen = true;
+      if (audioPlayer.paused) audioPlayer.play();
+    }
+  }
+});
