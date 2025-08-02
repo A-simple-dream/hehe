@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'Pacifico';
+  src: url('fonts/Pacifico-Regular.ttf') format('ttf');
+  font-weight: normal;
+  font-style: normal;
+}
 html, body {
     margin: 0;
     padding: 0;
