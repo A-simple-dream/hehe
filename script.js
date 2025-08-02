@@ -3,9 +3,9 @@ const pageInfos =
   ...(window.dataFromSubdomain && window.dataFromSubdomain.data.pageInfos
     ? window.dataFromSubdomain.data.pageInfos
     : [
-      { text: "Xin chào", image: "photo/photo1.jpg" },
+      { text: "Mùa hè rực rỡ của chúng ta", image: "photo/photo1.jpg" },
       { text: "Làm quen", image: "photo/photo2.jpg" },
-	  { text: "Kết thúc", image: "photo/photo3.jpg" },
+	{ text: "Kết thúc", image: "photo/photo3.jpg" },
       ]),
 ];
 
