@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cuốn Nhật Ký Mùa Hạ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- 🔐 Giao diện nhập mật mã -->
+  <div id="password-container">
+    <h2>U NEED TO ENTER A Password!</h2>
+    <div id="display">****</div>
+    <div class="keypad">
+      <button onclick="pressNum('1')">1</button>
+      <button onclick="pressNum('2')">2</button>
+      <button onclick="pressNum('3')">3</button>
+      <button onclick="pressNum('4')">4</button>
+      <button onclick="pressNum('5')">5</button>
+      <button onclick="pressNum('6')">6</button>
+      <button onclick="pressNum('7')">7</button>
+      <button onclick="pressNum('8')">8</button>
+      <button onclick="pressNum('9')">9</button>
+      <button onclick="pressNum('0')">0</button>
+    </div>
+    <div id="message"></div>
+  </div>
+
+  <!-- 📖 Nội dung ẩn ban đầu -->
+  <div id="main-content">
+    <div class="orientation-warning">Vui lòng xoay dọc thiết bị để xem nội dung</div>
+    <div class="cassette-top-center" id="cassetteBtn">
+      <img src="assets/page1.png" alt="cassette" class="cassette-img" />
+    </div>
+    <audio id="audioPlayer" src="assets/music.mp3"></audio>
+    <div class="book"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
