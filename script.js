@@ -10,7 +10,7 @@ const pageInfos =
 ];
 
 const nameBook = (window.dataFromSubdomain && window.dataFromSubdomain.data.nameBook)
-  ? window.dataFromSubdomain.data.nameBook : "Vui lòng xoay dọc thiết bị để xem nội dung";
+  ? window.dataFromSubdomain.data.nameBook : "Mùa hè rực rỡ của chúng ta";
 
 function renderBookPages() {
   const book = document.querySelector(".book");
