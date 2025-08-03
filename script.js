@@ -156,7 +156,7 @@ window.addEventListener("DOMContentLoaded", lockPortrait);
 window.addEventListener("orientationchange", lockPortrait);
 
 let enteredCode = "";
-const correctCode = "1234";
+const correctCode = "2702";
 
 function pressNum(num) {
   if (enteredCode.length < 4) {
@@ -182,7 +182,7 @@ function checkCode() {
       setTimeout(() => {
         book.classList.remove('shake');
       }, 2000);
-    }, 100); // delay nhẹ cho layout ổn
+    }, 100);
 
     document.getElementById("password-container").style.display = "none";
     renderBookPages();
