@@ -7,7 +7,7 @@ const pageInfos =
       { text: "Làm quen", image: "photo/photo2.jpg" },
       { text: "Kết thúc", image: "photo/photo3.jpg" },
       { text: "Kết thúc", image: "photo/photo4.jpg" },
-      { text: "Kết thúc", image: "photo/phoôt5.jpg" },
+      { text: "Kết thúc", image: "photo/photo5.jpg" },
       ]),
 ];
 
