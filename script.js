@@ -5,12 +5,14 @@ const pageInfos =
     : [
       { text: "Mùa hè rực rỡ của chúng ta", image: "photo/photo1.jpg" },
       { text: "Làm quen", image: "photo/photo2.jpg" },
-	{ text: "Kết thúc", image: "photo/photo3.jpg" },
+      { text: "Kết thúc", image: "photo/photo3.jpg" },
+      { text: "Kết thúc", image: "photo/photo4.jpg" },
+      { text: "Kết thúc", image: "photo/phoôt5.jpg" },
       ]),
 ];
 
 const nameBook = (window.dataFromSubdomain && window.dataFromSubdomain.data.nameBook)
-  ? window.dataFromSubdomain.data.nameBook : "Mùa hè rực rỡ của chúng ta";
+  ? window.dataFromSubdomain.data.nameBook : "Hướng dương ngược nắng:)";
 
 function renderBookPages() {
   const book = document.querySelector(".book");
