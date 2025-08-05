@@ -3,11 +3,14 @@ const pageInfos =
   ...(window.dataFromSubdomain && window.dataFromSubdomain.data.pageInfos
     ? window.dataFromSubdomain.data.pageInfos
     : [
-      { text: "Mùa hè rực rỡ của chúng ta", image: "photo/photo1.jpg" },
-      { text: "Làm quen", image: "photo/photo2.jpg" },
-      { text: "Kết thúc", image: "photo/photo3.jpg" },
-      { text: "Kết thúc", image: "photo/photo4.jpg" },
-      { text: "Kết thúc", image: "photo/photo5.jpg" },
+      { text: "Xin chào!!!!", image: "photo/photo1.jpg" },
+      { text: "Cũng không phải là dịp gì cả:)", image: "photo/photo2.jpg" },
+      { text: "", image: "photo/photo3.jpg" },
+      { text: "Có điều nhỏ xíu gửi đến Thanh Xuân", image: "photo/photo4.jpg" },
+      { text: "", image: "photo/photo5.jpg" },
+      { text: "Hehe", image: "photo/photo6.jpg" },
+      { text: "", image: "photo/photo7.jpg" },
+      { text: "HIHI", image: "photo/photo8.jpg" },
       ]),
 ];
 
