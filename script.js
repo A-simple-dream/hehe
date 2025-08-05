@@ -6,7 +6,7 @@ const pageInfos =
       { text: "Xin chào!!!!<br>(^.^)", image: "photo/photo1.jpg" },
       { text: "Cũng không phải là dịp gì cả:)", image: "photo/photo2.jpg" },
       { text: "", image: "photo/photo3.jpg" },
-      { text: "Có điều nhỏ xíu gửi đến Thanh Xuân", image: "photo/photo4.jpg" },
+      { text: "Có điều nhỏ xíu gửi đến<br>Thanh Xuân", image: "photo/photo4.jpg" },
       { text: "", image: "photo/photo5.jpg" },
       { text: "Mong Thanh Xuân luôn zui zẻ nhen", image: "photo/photo6.jpg" },
       { text: "", image: "photo/photo7.jpg" },
