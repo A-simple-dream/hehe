@@ -10,7 +10,7 @@ const pageInfos =
       { text: "", image: "photo/photo5.jpg" },
       { text: "Mong Thanh Xuân luôn zui zẻ nhen", image: "photo/photo6.jpg" },
       { text: "", image: "photo/photo7.jpg" },
-      { text: "Ố. Hết ảnh gòi. Nghe nhạc thoiii<br>BaiBai", image: "photo/photo8.jpg" },
+      { text: "Ố. Hết ảnh gòi. Nghe nhạc thoiii he<br>BaiBai", image: "photo/photo8.jpg" },
       ]),
 ];
 
